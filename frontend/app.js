@@ -59,3 +59,50 @@ function setLoading(isLoading) {
 function setError(msg) {
   resultsList.innerHTML = `<p style="color:red;">${msg}</p>`;
 }
+
+function fetchTrending(page = 1) {
+  setTrendingLoading(true);
+  fetch(`/api/trending?page=${page}`)
+    .then(res => res.json())
+    .then(data => {
+      renderTrending(data.results);
+    })
+    .catch(() => setTrendingError('Error fetching trending content.'));
+}
+
+function renderTrending(results) {
+  trendingList.innerHTML = '';
+  trendingList.parentNode.className = 'carousel';
+  trendingList.className = 'carousel-list';
+  if (!results || results.length === 0) {
+    trendingList.innerHTML = '<p>No trending content found.</p>';
+    return;
+  }
+  results.forEach(item => {
+    const data = item;
+    const title = data.title || data.name || 'Untitled';
+    const poster = data.poster_path ? `https://image.tmdb.org/t/p/w300${data.poster_path}` : '';
+    const type = data.media_type || 'unknown';
+    const year = (data.release_date || data.first_air_date || '').slice(0, 4);
+    const html = `
+      <div class="carousel-item result-item" data-id="${data.id}" data-type="${type}">
+        ${poster ? `<img src="${poster}" alt="${title}" />` : '<div style="height:220px;background:#333;"></div>'}
+        <div class="carousel-info">
+          <div style="font-weight:bold;">${title}</div>
+          <div style="font-size:0.95em;opacity:0.8;">${year}</div>
+        </div>
+      </div>
+    `;
+    trendingList.innerHTML += html;
+  });
+}
+
+function setTrendingLoading(isLoading) {
+  if (isLoading) {
+    trendingList.innerHTML = '<p>Loading...</p>';
+  }
+}
+
+function setTrendingError(msg) {
+  trendingList.innerHTML = `<p style="color:red;">${msg}</p>`;
+}
