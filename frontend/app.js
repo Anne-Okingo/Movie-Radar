@@ -106,3 +106,32 @@ function setTrendingLoading(isLoading) {
 function setTrendingError(msg) {
   trendingList.innerHTML = `<p style="color:red;">${msg}</p>`;
 }
+
+let genres = [];
+const genreFilter = document.createElement('select');
+genreFilter.id = 'genre-filter';
+genreFilter.innerHTML = '<option value="">All Genres</option>';
+searchInput.parentNode.insertBefore(genreFilter, searchInput.nextSibling);
+
+function fetchGenres() {
+  fetch('/api/genres')
+    .then(res => res.json())
+    .then(data => {
+      genres = data.genres || [];
+      genres.forEach(g => {
+        const opt = document.createElement('option');
+        opt.value = g.id;
+        opt.textContent = g.name;
+        genreFilter.appendChild(opt);
+      });
+    });
+}
+
+function filterByGenre(results, genreId) {
+  if (!genreId) return results;
+  return results.filter(item => (item.genre_ids || []).includes(Number(genreId)));
+}
+
+genreFilter.addEventListener('change', () => {
+  // Re-render filtered results
+});
