@@ -72,3 +72,8 @@ npm run dev
 ---
 
 Made using React and Tailwind CSS
+
+
+
+git remote set-url origin https://github.com/Anne-Okingo/Movie-Radar.git
+
