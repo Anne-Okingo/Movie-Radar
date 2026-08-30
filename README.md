@@ -2,6 +2,8 @@
 
 A modern, responsive movie and TV show discovery web application built with React and Tailwind CSS.
 
+🔗 **Live demo:** [movie-radar-3wcw.onrender.com](https://movie-radar-3wcw.onrender.com)
+
 ##  Features
 
 -  Search & Discovery: Search for movies and TV shows using TMDB API
