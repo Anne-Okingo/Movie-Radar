@@ -28,12 +28,18 @@ A modern, responsive movie and TV show discovery web application built with Reac
 npm install
 ```
 
-2. Start the development server:
+2. Get a free API key from [TMDB](https://www.themoviedb.org/settings/api) and add it to a `.env` file:
+```bash
+cp .env.example .env
+# then edit .env and set VITE_TMDB_API_KEY
+```
+
+3. Start the development server:
 ```bash
 npm run dev
 ```
 
-3. Open your browser and navigate to `http://localhost:5173`
+4. Open your browser and navigate to `http://localhost:5173`
 
 ## Built With
 
